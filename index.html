@@ -52,6 +52,10 @@
             border-left-color: #ccff00;
             background: rgba(255, 255, 255, 0.08);
         }
+        .checklist-item:active {
+            transform: translateX(2px);
+            background: rgba(204, 255, 0, 0.1);
+        }
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #0a0a0a; }
@@ -93,16 +97,15 @@
                 <p class="text-xs text-gray-400 mb-4">Click items for video tutorials.</p>
                 
                 <div class="flex items-center justify-between bg-black/30 p-2 rounded border border-white/10">
-                   <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2">
                       <span class="material-symbols-outlined text-neon-yellow text-sm animate-pulse-slow">timer</span>
                       <span class="text-xs text-gray-400 uppercase tracking-wider">Time to Fight</span>
-                   </div>
-                   <span class="font-mono text-lg font-bold text-white countdown-display">00:00:00</span>
+                    </div>
+                    <span class="font-mono text-lg font-bold text-white countdown-display">00:00:00</span>
                 </div>
             </div>
             
-            <div id="checklist-container" class="flex-1 overflow-y-auto p-4 space-y-3">
-                </div>
+            <div id="checklist-container" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
             <div class="p-4 border-t border-white/5 bg-black/20">
                 <div class="flex items-center gap-3 text-gray-400 text-sm">
                     <span class="material-symbols-outlined text-neon-yellow">fitness_center</span>
@@ -113,7 +116,7 @@
 
         <div class="flex-1 flex flex-col relative bg-black/50">
             <div class="absolute inset-0 z-0">
-                <img src="https://images.unsplash.com/photo-1590556409324-aa1d726e5c3c?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover opacity-20 grayscale" alt="Gym Background">
+                <img src="https://i.ibb.co/Vcs7bbq6/bg.jpg" class="w-full h-full object-cover opacity-20 grayscale" alt="Gym Background">
                 <div class="absolute inset-0 bg-gradient-to-t from-fight-black via-fight-black/80 to-transparent"></div>
             </div>
             
@@ -128,12 +131,11 @@
                 </button>
             </div>
 
-            <div id="schedule-container" class="relative z-10 flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth">
-                </div>
+            <div id="schedule-container" class="relative z-10 flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth"></div>
         </div>
     </main>
 
-    <dialog id="detail-modal" class="bg-transparent p-0 w-full max-w-2xl backdrop:bg-black/80 backdrop:backdrop-blur-sm m-auto rounded-xl shadow-2xl open:animate-[fadeIn_0.2s_ease-out]">
+    <dialog id="detail-modal" class="bg-transparent p-0 w-full max-w-2xl backdrop:bg-black/80 backdrop:backdrop-blur-sm m-auto rounded-xl shadow-2xl">
         <div class="glass-panel text-white rounded-xl overflow-hidden border border-white/10 relative">
             <button onclick="this.closest('dialog').close()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-20">
                 <span class="material-symbols-outlined">close</span>
@@ -165,11 +167,11 @@
                     <button onclick="this.closest('dialog').close()" class="text-white"><span class="material-symbols-outlined">close</span></button>
                 </div>
                 <div class="flex items-center justify-between bg-black/30 p-3 rounded border border-white/10">
-                   <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2">
                       <span class="material-symbols-outlined text-neon-yellow text-sm animate-pulse-slow">timer</span>
                       <span class="text-xs text-gray-400 uppercase tracking-wider">Time to Fight</span>
-                   </div>
-                   <span class="font-mono text-xl font-bold text-white countdown-display">00:00:00</span>
+                    </div>
+                    <span class="font-mono text-xl font-bold text-white countdown-display">00:00:00</span>
                 </div>
             </div>
             <div id="mobile-checklist-content" class="p-4 space-y-4 overflow-y-auto"></div>
@@ -178,12 +180,12 @@
 
     <script>
         const checklistItems = [
-            { id: 1, title: "Cutting the Ring", desc: "No straight lines back. Lateral movement only.", icon: "directions_walk", videoId: "hCDH0fEOh0Y" },
-            { id: 2, title: "Double Jab Entry", desc: "Never enter with a single shot. 1-1-2.", icon: "sports_martial_arts", videoId: "UjHH3mgQTVY" },
-            { id: 3, title: "Body-Head Transitions", desc: "Change levels. Make them guess.", icon: "swap_vert", videoId: "fJaMA3FfB5M" },
-            { id: 4, title: "Pivot Escape", desc: "Hit, then angle out. Don't admire your work.", icon: "rotate_right", videoId: "hNclexRmDsY" },
-            { id: 5, title: "Hand-Checking", desc: "Disrupt their jab before it starts.", icon: "pan_tool", videoId: "ob3VJDiP60U" },
-            { id: 6, title: "Head Slotting", desc: "Head off-center immediately after punching.", icon: "psychology", videoId: "Dkzdn47VTsg" }
+            { id: 1, title: "Cutting the Ring", desc: "No straight lines back. Lateral movement only.", videoId: "hCDH0fEOh0Y" },
+            { id: 2, title: "Double Jab Entry", desc: "Never enter with a single shot. 1-1-2.", videoId: "UjHH3mgQTVY" },
+            { id: 3, title: "Body-Head Transitions", desc: "Change levels. Make them guess.", videoId: "fJaMA3FfB5M" },
+            { id: 4, title: "Pivot Escape", desc: "Hit, then angle out. Don't admire your work.", videoId: "hNclexRmDsY" },
+            { id: 5, title: "Hand-Checking", desc: "Disrupt their jab before it starts.", videoId: "ob3VJDiP60U" },
+            { id: 6, title: "Head Slotting", desc: "Head off-center immediately after punching.", videoId: "Dkzdn47VTsg" }
         ];
 
         const scheduleData = {
@@ -191,25 +193,34 @@
                 title: "The Sharpening Phase",
                 desc: "High intensity, short bursts. Mastering checklist under pressure.",
                 days: [
-                    { date: "Jan 5", day: "Monday", focus: "Aggression & Pressure", drill: "6-8 rounds of heavy bag (3 mins on, 1 min off).", goals: [2, 3], img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=800" },
-                    { date: "Jan 6", day: "Tuesday", focus: "Defensive Positioning", drill: "Shadowboxing in ring + Slip-bag work.", goals: [6], img: "https://images.unsplash.com/photo-1509023464722-18d996393ca8?auto=format&fit=crop&q=80&w=800" },
-                    { date: "Jan 7", day: "Wednesday", focus: "Control & Range", drill: "Mitt work with Coach.", goals: [5, 4], img: "https://images.unsplash.com/photo-1552072092-2f9b1603ee70?auto=format&fit=crop&q=80&w=800" },
-                    { date: "Jan 8", day: "Thursday", focus: "Conditioning", drill: "Interval sprints + 'Ring Cutting' footwork.", goals: [1], img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800" },
-                    { date: "Jan 10", day: "Saturday", focus: "Last Hard Spar", drill: "Sparring recorded on 9ft tripod.", goals: [1], warning: "Do not back up in straight lines.", img: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&q=80&w=800" }
+                    { date: "Jan 5", day: "Monday", focus: "Aggression & Pressure", drill: "6-8 rounds heavy bag.", goals: [2, 3], img: "https://i.ibb.co/SwNG7nB9/img2.jpg" },
+                    { date: "Jan 6", day: "Tuesday", focus: "Defensive Positioning", drill: "Shadowboxing + Slip-bag.", goals: [6], img: "https://i.ibb.co/Xk87m1XT/img3.jpg" },
+                    { date: "Jan 7", day: "Wednesday", focus: "Control & Range", drill: "Mitt work with Coach.", goals: [5, 4], img: "https://i.ibb.co/DHWVSNNz/img4.jpg" },
+                    { date: "Jan 8", day: "Thursday", focus: "Conditioning & Footwork", drill: "Interval sprints.", goals: [1], img: "https://i.ibb.co/hRKF1gGc/img5.jpg" },
+                    { date: "Jan 10", day: "Saturday", focus: "Last Hard Spar", drill: "Sparring recorded.", goals: [1], warning: "No straight lines back.", img: "https://i.ibb.co/2YkDCtXT/img6.jpg" }
                 ]
             },
             2: {
                 title: "The Peak & Taper Phase",
                 desc: "Recovery and speed. Volume down 50%. No heavy impact.",
                 days: [
-                    { date: "Jan 12", day: "Monday", focus: "Reflexes & Speed", drill: "Double-end bag & Speed bag.", goals: [6], img: "https://images.unsplash.com/photo-1599058917233-57c0e88cf449?auto=format&fit=crop&q=80&w=800" },
-                    { date: "Jan 13", day: "Tuesday", focus: "Precision Mitts", drill: "Light mitts / touch pads. No power.", goals: [2, 4], img: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&q=80&w=800" },
-                    { date: "Jan 17", day: "Saturday", focus: "TOURNAMENT DAY", drill: "Punch, move the head, and cut the ring.", goals: [1, 6], tournament: true, img: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?auto=format&fit=crop&q=80&w=800" }
+                    { date: "Jan 12", day: "Monday", focus: "Reflexes & Speed", drill: "Double-end bag.", goals: [6], img: "https://i.ibb.co/FLp21XfZ/img7.jpg" },
+                    { date: "Jan 13", day: "Tuesday", focus: "Precision Mitts", drill: "Light mitts. No power.", goals: [2, 4], img: "https://i.ibb.co/20ffQpSZ/img8.jpg" },
+                    { date: "Jan 14", day: "Wednesday", focus: "Strategy & Visualization", drill: "Shadowboxing with mirror.", goals: [6], img: "https://i.ibb.co/9m6TN7cy/img9.jpg" },
+                    { date: "Jan 15", day: "Thursday", focus: "Active Recovery", drill: "Stretching & mobility.", goals: [], img: "https://i.ibb.co/MkP2bY9Y/img10.jpg" },
+                    { date: "Jan 16", day: "Friday", focus: "Complete Rest", drill: "Gear check, weight check.", rest: true, goals: [], img: "https://i.ibb.co/MkP2bY9Y/img10.jpg" },
+                    { date: "Jan 17", day: "Saturday", focus: "TOURNAMENT DAY", drill: "Punch, move, cut the ring.", goals: [1, 6], tournament: true, img: "https://i.ibb.co/LdgLFJ7M/img11.jpg" }
                 ]
             }
         };
 
         let currentPhase = 1;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderChecklist();
+            renderSchedule();
+            startCountdown();
+        });
 
         function renderChecklist() {
             const html = checklistItems.map(item => `
@@ -217,75 +228,58 @@
                     <div class="flex items-center justify-between mb-1">
                         <div class="flex items-center gap-3">
                             <span class="text-neon-yellow font-display font-bold text-xl">#${item.id}</span>
-                            <h3 class="text-white font-bold uppercase tracking-wider text-sm">${item.title}</h3>
+                            <h3 class="text-white font-bold uppercase text-sm">${item.title}</h3>
                         </div>
-                        <span class="material-symbols-outlined text-gray-500 group-hover:text-red-500 transition-colors">play_circle</span>
+                        <span class="material-symbols-outlined text-gray-500 group-hover:text-red-500">play_circle</span>
                     </div>
-                    <p class="text-xs text-gray-500 group-hover:text-gray-300 transition-colors pr-6">${item.desc}</p>
+                    <p class="text-xs text-gray-500 pr-6">${item.desc}</p>
                 </div>
             `).join('');
-            
             document.getElementById('checklist-container').innerHTML = html;
             document.getElementById('mobile-checklist-content').innerHTML = html;
-        }
-
-        function switchPhase(phase) {
-            currentPhase = phase;
-            document.getElementById('tab-phase1').className = phase === 1 ? "flex-1 py-4 text-center border-b-2 border-neon-yellow bg-white/5" : "flex-1 py-4 text-center border-b-2 border-transparent hover:bg-white/5";
-            document.getElementById('tab-phase2').className = phase === 2 ? "flex-1 py-4 text-center border-b-2 border-neon-yellow bg-white/5" : "flex-1 py-4 text-center border-b-2 border-transparent hover:bg-white/5";
-            
-            const t1 = document.querySelector('#tab-phase1 span:last-child');
-            const t2 = document.querySelector('#tab-phase2 span:last-child');
-            t1.style.color = phase === 1 ? 'white' : '#6b7280';
-            t2.style.color = phase === 2 ? 'white' : '#6b7280';
-
-            renderSchedule();
         }
 
         function renderSchedule() {
             const container = document.getElementById('schedule-container');
             const data = scheduleData[currentPhase];
-            let html = `<div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-white/10 to-transparent border-l-4 border-neon-yellow"><h2 class="text-3xl font-display font-bold text-white uppercase mb-2">${data.title}</h2><p class="text-gray-300 max-w-2xl">${data.desc}</p></div><div class="space-y-4">`;
-
+            let html = `<div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-white/10 to-transparent border-l-4 border-neon-yellow animate-[fadeIn_0.3s_ease-out]">
+                        <h2 class="text-3xl font-display font-bold text-white uppercase mb-2">${data.title}</h2>
+                        <p class="text-gray-300 max-w-2xl">${data.desc}</p></div><div class="space-y-4">`;
+            
             html += data.days.map((day, idx) => `
-                <div onclick="openDayModal(${currentPhase}, ${idx})" class="group relative rounded-lg border ${day.tournament ? 'border-neon-yellow bg-neon-yellow/10' : 'border-white/10 bg-fight-gray/80'} p-5 cursor-pointer hover:border-l-neon-yellow transition-all">
+                <div onclick="openDayModal(${currentPhase}, ${idx})" class="group relative rounded-lg border ${day.tournament ? 'border-neon-yellow bg-neon-yellow/10' : 'border-white/10 bg-fight-gray/80'} p-5 cursor-pointer hover:border-l-4 hover:border-l-neon-yellow transition-all">
                     <div class="flex flex-col md:flex-row md:items-center gap-6">
-                        <div class="w-24 shrink-0">
+                        <div class="w-24">
                             <span class="block text-xs font-bold text-gray-500 uppercase">${day.day}</span>
-                            <span class="block text-3xl font-display font-bold ${day.tournament ? 'text-neon-yellow' : 'text-white'}">${day.date}</span>
+                            <span class="block text-3xl font-display font-bold text-white">${day.date}</span>
                         </div>
                         <div class="flex-1">
                             <h3 class="text-xl font-bold text-white uppercase">${day.focus}</h3>
                             <p class="text-sm text-gray-400 truncate">${day.drill}</p>
                         </div>
-                        <div class="hidden md:flex gap-2">
-                            ${day.goals.map(g => `<span class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-xs text-gray-400">#${g}</span>`).join('')}
-                        </div>
+                        <span class="material-symbols-outlined text-gray-500 group-hover:text-neon-yellow">chevron_right</span>
                     </div>
                 </div>
             `).join('');
             container.innerHTML = html + `</div>`;
         }
 
-        function openDayModal(phase, idx) {
-            const day = scheduleData[phase].days[idx];
+        function openDayModal(phaseIdx, dayIdx) {
+            const day = scheduleData[phaseIdx].days[dayIdx];
+            const modal = document.getElementById('detail-modal');
             const content = document.getElementById('modal-content');
             content.innerHTML = `
-                <div class="h-48 w-full"><img src="${day.img}" class="w-full h-full object-cover"></div>
+                <div class="h-48 w-full overflow-hidden"><img src="${day.img}" class="w-full h-full object-cover"></div>
                 <div class="p-6 bg-fight-gray">
-                    <h2 class="text-neon-yellow text-xs font-bold uppercase mb-1">${day.day}, ${day.date}</h2>
-                    <h1 class="text-3xl font-display font-bold text-white uppercase mb-4">${day.focus}</h1>
-                    <p class="text-xl text-white border-l-2 border-neon-yellow pl-4 mb-6">${day.drill}</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        ${day.goals.map(id => {
-                            const item = checklistItems.find(i => i.id === id);
-                            return `<div class="p-3 bg-white/5 rounded border border-white/5"><span class="text-neon-yellow font-bold">#${item.id}</span> <span class="text-white text-xs uppercase block">${item.title}</span></div>`;
-                        }).join('')}
-                    </div>
-                </div>`;
-            document.getElementById('detail-modal').showModal();
+                    <h2 class="text-3xl font-display font-bold text-neon-yellow uppercase">${day.focus}</h2>
+                    <p class="text-xl text-white mt-4 border-l-2 border-neon-yellow pl-4">${day.drill}</p>
+                    ${day.warning ? `<p class="mt-2 text-alert-red text-sm">⚠️ ${day.warning}</p>` : ''}
+                </div>
+            `;
+            modal.showModal();
         }
 
+        function switchPhase(p) { currentPhase = p; renderSchedule(); }
         function openVideoModal(id) {
             const item = checklistItems.find(i => i.id === id);
             document.getElementById('video-title').innerText = item.title;
@@ -293,22 +287,19 @@
             document.getElementById('youtube-frame').src = `https://www.youtube.com/embed/${item.videoId}?autoplay=1`;
             document.getElementById('video-modal').showModal();
         }
-
         function closeVideoModal() {
             document.getElementById('youtube-frame').src = "";
             document.getElementById('video-modal').close();
         }
-
         function startCountdown() {
             const target = new Date('January 17, 2026 00:00:00').getTime();
             setInterval(() => {
-                const dist = target - new Date().getTime();
-                const d = Math.floor(dist / 86400000), h = Math.floor((dist % 86400000) / 3600000), m = Math.floor((dist % 3600000) / 60000);
-                document.querySelectorAll(".countdown-display").forEach(el => el.innerHTML = dist < 0 ? "FIGHT DAY" : `${d}d ${h}h ${m}m`);
+                const now = new Date().getTime();
+                const diff = target - now;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.querySelectorAll(".countdown-display").forEach(el => el.innerHTML = days + "d Left");
             }, 1000);
         }
-
-        window.onload = () => { renderChecklist(); renderSchedule(); startCountdown(); };
     </script>
 </body>
 </html>
