@@ -44,6 +44,7 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
+        /* Interactive Checklist Item */
         .checklist-item {
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -57,6 +58,7 @@
             background: rgba(204, 255, 0, 0.1);
         }
 
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #0a0a0a; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
@@ -70,6 +72,7 @@
     </style>
 </head>
 <body class="h-screen flex flex-col overflow-hidden">
+    <!-- Header -->
     <header class="h-16 border-b border-white/10 flex items-center justify-between px-4 md:px-8 bg-fight-black z-20 shrink-0">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-neon-yellow text-black font-bold flex items-center justify-center rounded text-xl font-display">M</div>
@@ -84,28 +87,34 @@
                 <span class="text-white font-bold font-display text-xl tracking-wide">JAN 17 <span class="text-neon-yellow">•</span> SATURDAY</span>
             </div>
             
+            <!-- Mobile Checklist Button -->
             <button onclick="document.getElementById('mobile-checklist').showModal()" class="md:hidden bg-fight-gray border border-white/10 w-10 h-10 flex items-center justify-center rounded text-neon-yellow active:bg-white/10 transition-colors shadow-lg shadow-black/50">
                 <span class="material-symbols-outlined">list_alt</span>
             </button>
         </div>
     </header>
 
+    <!-- Main Layout -->
     <main class="flex-1 flex overflow-hidden">
+        <!-- Sidebar: Checklist (Desktop) with Timer -->
         <aside class="w-80 bg-fight-gray/50 border-r border-white/5 flex flex-col hidden md:flex shrink-0">
             <div class="p-6 border-b border-white/5">
                 <h2 class="text-neon-yellow font-display text-2xl uppercase tracking-wide mb-1">The Checklist</h2>
                 <p class="text-xs text-gray-400 mb-4">Click items for video tutorials.</p>
                 
+                <!-- Desktop Timer -->
                 <div class="flex items-center justify-between bg-black/30 p-2 rounded border border-white/10">
-                    <div class="flex items-center gap-2">
+                   <div class="flex items-center gap-2">
                       <span class="material-symbols-outlined text-neon-yellow text-sm animate-pulse-slow">timer</span>
                       <span class="text-xs text-gray-400 uppercase tracking-wider">Time to Fight</span>
-                    </div>
-                    <span class="font-mono text-lg font-bold text-white countdown-display">00:00:00</span>
+                   </div>
+                   <span class="font-mono text-lg font-bold text-white countdown-display">00:00:00</span>
                 </div>
             </div>
             
-            <div id="checklist-container" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+            <div id="checklist-container" class="flex-1 overflow-y-auto p-4 space-y-3">
+                <!-- Checklist Items Generated Here -->
+            </div>
             <div class="p-4 border-t border-white/5 bg-black/20">
                 <div class="flex items-center gap-3 text-gray-400 text-sm">
                     <span class="material-symbols-outlined text-neon-yellow">fitness_center</span>
@@ -114,12 +123,15 @@
             </div>
         </aside>
 
+        <!-- Content Area -->
         <div class="flex-1 flex flex-col relative bg-black/50">
+            <!-- Background Image -->
             <div class="absolute inset-0 z-0">
-                <img src="https://i.ibb.co/Vcs7bbq6/bg.jpg" class="w-full h-full object-cover opacity-20 grayscale" alt="Gym Background">
+                <img src="/gen?prompt=dark+gritty+boxing+gym+background+with+hanging+heavy+bags+and+atmospheric+lighting&aspect=16:9" class="w-full h-full object-cover opacity-20 grayscale" alt="Gym Background">
                 <div class="absolute inset-0 bg-gradient-to-t from-fight-black via-fight-black/80 to-transparent"></div>
             </div>
             
+            <!-- Tab Navigation -->
             <div class="relative z-10 flex border-b border-white/10 shrink-0 backdrop-blur-sm">
                 <button onclick="switchPhase(1)" id="tab-phase1" class="flex-1 py-4 text-center border-b-2 border-neon-yellow bg-white/5 transition-all group">
                     <span class="block text-xs text-gray-400 uppercase tracking-widest group-hover:text-white">Week 1</span>
@@ -131,11 +143,15 @@
                 </button>
             </div>
 
-            <div id="schedule-container" class="relative z-10 flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth"></div>
+            <!-- Scrollable Timeline -->
+            <div id="schedule-container" class="relative z-10 flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth">
+                <!-- Schedule Cards Injected Here -->
+            </div>
         </div>
     </main>
 
-    <dialog id="detail-modal" class="bg-transparent p-0 w-full max-w-2xl backdrop:bg-black/80 backdrop:backdrop-blur-sm m-auto rounded-xl shadow-2xl">
+    <!-- Details Modal -->
+    <dialog id="detail-modal" class="bg-transparent p-0 w-full max-w-2xl backdrop:bg-black/80 backdrop:backdrop-blur-sm m-auto rounded-xl shadow-2xl open:animate-[fadeIn_0.2s_ease-out]">
         <div class="glass-panel text-white rounded-xl overflow-hidden border border-white/10 relative">
             <button onclick="this.closest('dialog').close()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-20">
                 <span class="material-symbols-outlined">close</span>
@@ -144,6 +160,7 @@
         </div>
     </dialog>
 
+    <!-- Video Modal -->
     <dialog id="video-modal" class="bg-transparent p-0 w-full max-w-4xl backdrop:bg-black/90 backdrop:backdrop-blur-md m-auto rounded-xl shadow-2xl">
         <div class="bg-fight-black text-white rounded-xl overflow-hidden border border-white/10 relative flex flex-col max-h-[90vh]">
             <div class="p-4 border-b border-white/10 flex justify-between items-center bg-fight-gray">
@@ -153,4 +170,344 @@
                 </button>
             </div>
             <div class="aspect-video w-full bg-black">
-                <iframe id="youtube-frame" class="w-full h
+                <iframe id="youtube-frame" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="p-4 bg-fight-gray text-sm text-gray-400" id="video-desc">
+                <!-- Description -->
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Mobile Checklist Modal -->
+    <dialog id="mobile-checklist" class="bg-fight-gray text-white w-full h-full max-w-none m-0 p-0 backdrop:bg-black/90">
+        <div class="flex flex-col h-full">
+            <div class="p-4 border-b border-white/10">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-neon-yellow font-display text-2xl uppercase">The Checklist</h2>
+                    <button onclick="this.closest('dialog').close()" class="text-white"><span class="material-symbols-outlined">close</span></button>
+                </div>
+                <!-- Mobile Timer -->
+                <div class="flex items-center justify-between bg-black/30 p-3 rounded border border-white/10">
+                   <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-neon-yellow text-sm animate-pulse-slow">timer</span>
+                      <span class="text-xs text-gray-400 uppercase tracking-wider">Time to Fight</span>
+                   </div>
+                   <span class="font-mono text-xl font-bold text-white countdown-display">00:00:00</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">Tap an item to watch the tutorial.</p>
+            </div>
+            <div id="mobile-checklist-content" class="p-4 space-y-4 overflow-y-auto"></div>
+        </div>
+    </dialog>
+
+    <script>
+        // --- Data ---
+        // Video IDs based on common boxing tutorials
+        const checklistItems = [
+            { id: 1, title: "Cutting the Ring", desc: "No straight lines back. Lateral movement only.", icon: "directions_walk", videoId: "hCDH0fEOh0Y" },
+            { id: 2, title: "Double Jab Entry", desc: "Never enter with a single shot. 1-1-2.", icon: "sports_martial_arts", videoId: "UjHH3mgQTVY" },
+            { id: 3, title: "Body-Head Transitions", desc: "Change levels. Make them guess.", icon: "swap_vert", videoId: "fJaMA3FfB5M" },
+            { id: 4, title: "Pivot Escape", desc: "Hit, then angle out. Don't admire your work.", icon: "rotate_right", videoId: "hNclexRmDsY" },
+            { id: 5, title: "Hand-Checking", desc: "Disrupt their jab before it starts.", icon: "pan_tool", videoId: "ob3VJDiP60U" },
+            { id: 6, title: "Head Slotting", desc: "Head off-center immediately after punching.", icon: "psychology", videoId: "Dkzdn47VTsg" }
+            // Item 7 Removed as requested
+        ];
+
+        // Dates based on Jan 17, 2026 (Saturday) Tournament
+        const scheduleData = {
+            1: {
+                title: "The Sharpening Phase",
+                desc: "High intensity, short bursts. Mastering checklist under pressure.",
+                color: "neon-yellow",
+                days: [
+                    { 
+                        date: "Jan 5", day: "Monday", 
+                        focus: "Aggression & Pressure", 
+                        drill: "6-8 rounds of heavy bag (3 mins on, 1 min off).", 
+                        goals: [2, 3],
+                        img_query: "boxer hitting heavy bag intense sweat dark lighting"
+                    },
+                    { 
+                        date: "Jan 6", day: "Tuesday", 
+                        focus: "Defensive Positioning", 
+                        drill: "Shadowboxing in ring + Slip-bag work.", 
+                        goals: [6], // Removed 7
+                        img_query: "boxer shadow boxing silhouette ring lights"
+                    },
+                    { 
+                        date: "Jan 7", day: "Wednesday", 
+                        focus: "Control & Range", 
+                        drill: "Mitt work with Coach.", 
+                        goals: [5, 4],
+                        img_query: "boxing coach holding mitts training pads close up"
+                    },
+                    { 
+                        date: "Jan 8", day: "Thursday", 
+                        focus: "Conditioning & Footwork", 
+                        drill: "Interval sprints + 'Ring Cutting' footwork (no punches).", 
+                        goals: [1],
+                        img_query: "boxer footwork training boxing shoes canvas"
+                    },
+                    { 
+                        date: "Jan 10", day: "Saturday", 
+                        focus: "Last Hard Spar", 
+                        drill: "Sparring recorded on 9ft tripod. Review straight lines.", 
+                        goals: [1],
+                        warning: "Do not back up in straight lines.",
+                        img_query: "boxing sparring session headgear mouthpiece intense"
+                    }
+                ]
+            },
+            2: {
+                title: "The Peak & Taper Phase",
+                desc: "Recovery and speed. Volume down 50%. No heavy impact.",
+                color: "teal-400",
+                days: [
+                    { 
+                        date: "Jan 12", day: "Monday", 
+                        focus: "Reflexes & Speed", 
+                        drill: "Double-end bag & Speed bag. < 45 mins total.", 
+                        goals: [6],
+                        img_query: "boxing speed bag motion blur training"
+                    },
+                    { 
+                        date: "Jan 13", day: "Tuesday", 
+                        focus: "Precision Mitts", 
+                        drill: "Light mitts / touch pads. No power.", 
+                        goals: [2, 4],
+                        img_query: "boxing precision focus mitts training light contact"
+                    },
+                    { 
+                        date: "Jan 14", day: "Wednesday", 
+                        focus: "Strategy & Visualization", 
+                        drill: "Shadowboxing with mirror. Visualize opponent.", 
+                        goals: [6], // Removed 7
+                        img_query: "boxer looking in mirror intense focus mental preparation"
+                    },
+                    { 
+                        date: "Jan 15", day: "Thursday", 
+                        focus: "Active Recovery", 
+                        drill: "Stretching, mobility, light footwork (25% speed).", 
+                        goals: [],
+                        note: "Stay loose. Walk through checklist mentally.",
+                        img_query: "athlete stretching gym floor mobility training"
+                    },
+                    { 
+                        date: "Jan 16", day: "Friday", 
+                        focus: "Complete Rest", 
+                        drill: "Gear check, weight check, mental review.", 
+                        goals: [],
+                        rest: true,
+                        img_query: "boxing gloves and gear neatly arranged on bench"
+                    },
+                    { 
+                        date: "Jan 17", day: "Saturday", 
+                        focus: "TOURNAMENT DAY", 
+                        drill: "Punch, move the head, and cut the ring.", 
+                        goals: [1, 6],
+                        tournament: true,
+                        img_query: "boxing tournament arena spotlight crowd atmosphere"
+                    }
+                ]
+            }
+        };
+
+        let currentPhase = 1;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderChecklist();
+            renderSchedule();
+            startCountdown();
+        });
+
+        // --- Video Logic ---
+        function openVideoModal(id) {
+            const item = checklistItems.find(i => i.id === id);
+            if (!item || !item.videoId) return;
+
+            const modal = document.getElementById('video-modal');
+            const frame = document.getElementById('youtube-frame');
+            const title = document.getElementById('video-title');
+            const desc = document.getElementById('video-desc');
+
+            title.innerText = item.title;
+            desc.innerText = item.desc;
+            frame.src = `https://www.youtube.com/embed/${item.videoId}?autoplay=1`;
+            
+            modal.showModal();
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('video-modal');
+            const frame = document.getElementById('youtube-frame');
+            frame.src = ""; // Stop video
+            modal.close();
+        }
+
+        // --- Render Checklist ---
+        function renderChecklist() {
+            const html = checklistItems.map(item => `
+                <div onclick="openVideoModal(${item.id})" class="checklist-item group p-3 rounded border border-white/5 cursor-pointer relative overflow-hidden bg-white/5 hover:border-neon-yellow/50">
+                    <div class="flex items-center justify-between mb-1">
+                        <div class="flex items-center gap-3">
+                            <span class="text-neon-yellow font-display font-bold text-xl">#${item.id}</span>
+                            <h3 class="text-white font-bold uppercase tracking-wider text-sm">${item.title}</h3>
+                        </div>
+                        <span class="material-symbols-outlined text-gray-500 group-hover:text-red-500 transition-colors">play_circle</span>
+                    </div>
+                    <p class="text-xs text-gray-500 group-hover:text-gray-300 transition-colors pr-6">${item.desc}</p>
+                </div>
+            `).join('');
+            
+            document.getElementById('checklist-container').innerHTML = html;
+            document.getElementById('mobile-checklist-content').innerHTML = html;
+        }
+
+        function switchPhase(phase) {
+            currentPhase = phase;
+            // Update Tabs
+            document.getElementById('tab-phase1').className = phase === 1 
+                ? "flex-1 py-4 text-center border-b-2 border-neon-yellow bg-white/5 transition-all group"
+                : "flex-1 py-4 text-center border-b-2 border-transparent hover:bg-white/5 transition-all group";
+            document.getElementById('tab-phase2').className = phase === 2 
+                ? "flex-1 py-4 text-center border-b-2 border-neon-yellow bg-white/5 transition-all group"
+                : "flex-1 py-4 text-center border-b-2 border-transparent hover:bg-white/5 transition-all group";
+            
+            // Fix text color toggling
+            const t1 = document.querySelector('#tab-phase1 span:last-child');
+            const t2 = document.querySelector('#tab-phase2 span:last-child');
+            t1.className = phase === 1 ? "block text-2xl font-display font-bold text-white uppercase tracking-wide" : "block text-2xl font-display font-bold text-gray-500 group-hover:text-white uppercase tracking-wide";
+            t2.className = phase === 2 ? "block text-2xl font-display font-bold text-white uppercase tracking-wide" : "block text-2xl font-display font-bold text-gray-500 group-hover:text-white uppercase tracking-wide";
+
+            renderSchedule();
+        }
+
+        function renderSchedule() {
+            const container = document.getElementById('schedule-container');
+            const data = scheduleData[currentPhase];
+            
+            let html = `
+                <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-white/10 to-transparent border-l-4 border-neon-yellow animate-[fadeIn_0.3s_ease-out]">
+                    <h2 class="text-3xl font-display font-bold text-white uppercase mb-2">${data.title}</h2>
+                    <p class="text-gray-300 max-w-2xl">${data.desc}</p>
+                </div>
+                <div class="space-y-4">
+            `;
+
+            html += data.days.map((day, idx) => {
+                const isTournament = day.tournament;
+                const isRest = day.rest;
+                const borderClass = isTournament ? 'border-neon-yellow bg-neon-yellow/10' : 
+                                  isRest ? 'border-blue-500/50 bg-blue-900/10' : 
+                                  'border-white/10 bg-fight-gray/80 hover:border-l-4 hover:border-l-neon-yellow';
+                
+                return `
+                    <div onclick="openDayModal(${currentPhase}, ${idx})" class="group relative overflow-hidden rounded-lg border ${borderClass} p-5 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-black/50">
+                        <div class="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                        <div class="flex flex-col md:flex-row md:items-center gap-6 relative z-10">
+                            <div class="flex-shrink-0 w-24">
+                                <span class="block text-xs font-bold text-gray-500 uppercase tracking-widest">${day.day}</span>
+                                <span class="block text-3xl font-display font-bold ${isTournament ? 'text-neon-yellow neon-text' : 'text-white'}">${day.date}</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-1">
+                                    <h3 class="text-xl font-bold text-white uppercase tracking-wide">${day.focus}</h3>
+                                    ${isTournament ? '<span class="px-2 py-0.5 bg-neon-yellow text-black text-[10px] font-bold uppercase rounded">Event</span>' : ''}
+                                    ${isRest ? '<span class="px-2 py-0.5 bg-blue-500 text-white text-[10px] font-bold uppercase rounded">Recovery</span>' : ''}
+                                </div>
+                                <p class="text-sm text-gray-400 truncate pr-4">${day.drill}</p>
+                            </div>
+                            <div class="hidden md:flex gap-2">
+                                ${day.goals.map(g => `<span class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-xs font-bold text-gray-400 bg-black/20" title="${checklistItems.find(i=>i.id===g)?.title}">#${g}</span>`).join('')}
+                                <span class="material-symbols-outlined text-gray-500 group-hover:text-neon-yellow transition-colors">chevron_right</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        function openDayModal(phaseIdx, dayIdx) {
+            const day = scheduleData[phaseIdx].days[dayIdx];
+            const modal = document.getElementById('detail-modal');
+            const content = document.getElementById('modal-content');
+            
+            // Image generated dynamically here
+            const imgUrl = `/gen?prompt=${encodeURIComponent(day.img_query)}&aspect=16:9`;
+
+            const goalsHtml = day.goals.length > 0 
+                ? day.goals.map(id => {
+                    const item = checklistItems.find(i => i.id === id);
+                    if(!item) return '';
+                    return `
+                        <li class="flex items-start gap-3 p-3 bg-white/5 rounded border border-white/5">
+                            <span class="text-neon-yellow font-bold">#${item.id}</span>
+                            <div>
+                                <strong class="block text-white uppercase text-xs tracking-wider">${item.title}</strong>
+                                <span class="text-gray-400 text-xs">${item.desc}</span>
+                            </div>
+                        </li>
+                    `;
+                }).join('')
+                : '<li class="text-gray-500 italic text-sm">No specific checklist items today. Focus on the drill.</li>';
+
+            content.innerHTML = `
+                <div class="relative h-48 w-full overflow-hidden">
+                    <img src="${imgUrl}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-fight-gray via-fight-gray/50 to-transparent"></div>
+                    <div class="absolute bottom-4 left-6">
+                        <span class="text-neon-yellow font-bold uppercase tracking-widest text-xs mb-1 block">${day.day}, ${day.date}</span>
+                        <h2 class="text-3xl font-display font-bold text-white uppercase leading-none">${day.focus}</h2>
+                    </div>
+                </div>
+                <div class="p-6 md:p-8 space-y-6 bg-fight-gray">
+                    <div>
+                        <h3 class="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">
+                            <span class="material-symbols-outlined text-neon-yellow text-lg">sports_mma</span> The Drill
+                        </h3>
+                        <p class="text-xl text-white font-medium leading-relaxed border-l-2 border-neon-yellow pl-4">${day.drill}</p>
+                        ${day.note ? `<p class="mt-2 text-blue-400 text-sm flex items-center gap-2"><span class="material-symbols-outlined text-sm">info</span> ${day.note}</p>` : ''}
+                        ${day.warning ? `<p class="mt-2 text-alert-red text-sm flex items-center gap-2"><span class="material-symbols-outlined text-sm">warning</span> ${day.warning}</p>` : ''}
+                    </div>
+                    <div>
+                        <h3 class="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">
+                            <span class="material-symbols-outlined text-neon-yellow text-lg">list_alt</span> Checklist Focus
+                        </h3>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            ${goalsHtml}
+                        </ul>
+                    </div>
+                    ${day.tournament ? `
+                        <div class="mt-6 p-4 bg-neon-yellow/10 border border-neon-yellow/30 rounded text-center">
+                            <span class="block text-neon-yellow font-bold uppercase tracking-widest text-lg animate-pulse">Good Luck Mitchell!</span>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            modal.showModal();
+        }
+
+        function startCountdown() {
+            const targetDate = new Date('January 17, 2026 00:00:00').getTime();
+            setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+                if (distance < 0) {
+                    // Update all countdown elements
+                    document.querySelectorAll(".countdown-display").forEach(el => el.innerHTML = "FIGHT DAY");
+                    return;
+                }
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const text = `${days}d ${hours}h ${minutes}m`;
+                
+                // Update all countdown elements
+                document.querySelectorAll(".countdown-display").forEach(el => el.innerHTML = text);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
