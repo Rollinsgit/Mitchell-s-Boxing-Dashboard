@@ -44,11 +44,18 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
-        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .card-hover:hover {
+        /* Interactive Checklist Item */
+        .checklist-item {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .checklist-item:hover {
             transform: translateX(4px);
             border-left-color: #ccff00;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .checklist-item:active {
+            transform: translateX(2px);
+            background: rgba(204, 255, 0, 0.1);
         }
 
         /* Custom Scrollbar */
@@ -65,7 +72,7 @@
     </style>
 </head>
 <body class="h-screen flex flex-col overflow-hidden">
-    <!-- Header (Timer Removed) -->
+    <!-- Header -->
     <header class="h-16 border-b border-white/10 flex items-center justify-between px-4 md:px-8 bg-fight-black z-20 shrink-0">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-neon-yellow text-black font-bold flex items-center justify-center rounded text-xl font-display">M</div>
@@ -80,8 +87,8 @@
                 <span class="text-white font-bold font-display text-xl tracking-wide">JAN 17 <span class="text-neon-yellow">•</span> SATURDAY</span>
             </div>
             
-            <!-- CHECKLIST BUTTON (Mobile) -->
-            <button onclick="document.getElementById('mobile-checklist').showModal()" class="md:hidden bg-fight-gray border border-white/10 w-10 h-10 flex items-center justify-center rounded text-neon-yellow active:bg-white/10 transition-colors">
+            <!-- Mobile Checklist Button -->
+            <button onclick="document.getElementById('mobile-checklist').showModal()" class="md:hidden bg-fight-gray border border-white/10 w-10 h-10 flex items-center justify-center rounded text-neon-yellow active:bg-white/10 transition-colors shadow-lg shadow-black/50">
                 <span class="material-symbols-outlined">list_alt</span>
             </button>
         </div>
@@ -93,7 +100,7 @@
         <aside class="w-80 bg-fight-gray/50 border-r border-white/5 flex flex-col hidden md:flex shrink-0">
             <div class="p-6 border-b border-white/5">
                 <h2 class="text-neon-yellow font-display text-2xl uppercase tracking-wide mb-1">The Checklist</h2>
-                <p class="text-xs text-gray-400 mb-4">Master these 7 points to win.</p>
+                <p class="text-xs text-gray-400 mb-4">Click items for video tutorials.</p>
                 
                 <!-- Desktop Timer -->
                 <div class="flex items-center justify-between bg-black/30 p-2 rounded border border-white/10">
@@ -153,7 +160,25 @@
         </div>
     </dialog>
 
-    <!-- Mobile Checklist Modal (With Timer) -->
+    <!-- Video Modal -->
+    <dialog id="video-modal" class="bg-transparent p-0 w-full max-w-4xl backdrop:bg-black/90 backdrop:backdrop-blur-md m-auto rounded-xl shadow-2xl">
+        <div class="bg-fight-black text-white rounded-xl overflow-hidden border border-white/10 relative flex flex-col max-h-[90vh]">
+            <div class="p-4 border-b border-white/10 flex justify-between items-center bg-fight-gray">
+                <h3 id="video-title" class="text-neon-yellow font-display text-xl uppercase tracking-wide">Video Title</h3>
+                <button onclick="closeVideoModal()" class="text-gray-400 hover:text-white hover:bg-white/10 rounded-full p-1 transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="aspect-video w-full bg-black">
+                <iframe id="youtube-frame" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="p-4 bg-fight-gray text-sm text-gray-400" id="video-desc">
+                <!-- Description -->
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Mobile Checklist Modal -->
     <dialog id="mobile-checklist" class="bg-fight-gray text-white w-full h-full max-w-none m-0 p-0 backdrop:bg-black/90">
         <div class="flex flex-col h-full">
             <div class="p-4 border-b border-white/10">
@@ -169,6 +194,7 @@
                    </div>
                    <span class="font-mono text-xl font-bold text-white countdown-display">00:00:00</span>
                 </div>
+                <p class="text-xs text-gray-500 mt-2">Tap an item to watch the tutorial.</p>
             </div>
             <div id="mobile-checklist-content" class="p-4 space-y-4 overflow-y-auto"></div>
         </div>
@@ -176,14 +202,15 @@
 
     <script>
         // --- Data ---
+        // Video IDs based on common boxing tutorials (Tony Jeffries, Precision Striking, etc.)
         const checklistItems = [
-            { id: 1, title: "Cutting the Ring", desc: "No straight lines back. Lateral movement only.", icon: "directions_walk" },
-            { id: 2, title: "Double Jab Entry", desc: "Never enter with a single shot. 1-1-2.", icon: "sports_martial_arts" },
-            { id: 3, title: "Body-Head Transitions", desc: "Change levels. Make them guess.", icon: "swap_vert" },
-            { id: 4, title: "Pivot Escape", desc: "Hit, then angle out. Don't admire your work.", icon: "rotate_right" },
-            { id: 5, title: "Hand-Checking", desc: "Disrupt their jab before it starts.", icon: "pan_tool" },
-            { id: 6, title: "Head Slotting", desc: "Head off-center immediately after punching.", icon: "psychology" },
-            { id: 7, title: "Eye Levels", desc: "Dip knees to change visual perspective.", icon: "visibility" }
+            { id: 1, title: "Cutting the Ring", desc: "No straight lines back. Lateral movement only.", icon: "directions_walk", videoId: "hCDH0fEOh0Y" },
+            { id: 2, title: "Double Jab Entry", desc: "Never enter with a single shot. 1-1-2.", icon: "sports_martial_arts", videoId: "UjHH3mgQTVY" },
+            { id: 3, title: "Body-Head Transitions", desc: "Change levels. Make them guess.", icon: "swap_vert", videoId: "T8PA6QiDmc4" },
+            { id: 4, title: "Pivot Escape", desc: "Hit, then angle out. Don't admire your work.", icon: "rotate_right", videoId: "hNclexRmDsY" },
+            { id: 5, title: "Hand-Checking", desc: "Disrupt their jab before it starts.", icon: "pan_tool", videoId: "ob3VJDiP60U" },
+            { id: 6, title: "Head Slotting", desc: "Head off-center immediately after punching.", icon: "psychology", videoId: "Dkzdn47VTsg" },
+            { id: 7, title: "Eye Levels", desc: "Dip knees to change visual perspective.", icon: "visibility", videoId: "x_YNeelRnlA" }
         ];
 
         // Dates based on Jan 17, 2026 (Saturday) Tournament
@@ -293,14 +320,42 @@
             startCountdown();
         });
 
+        // --- Video Logic ---
+        function openVideoModal(id) {
+            const item = checklistItems.find(i => i.id === id);
+            if (!item || !item.videoId) return;
+
+            const modal = document.getElementById('video-modal');
+            const frame = document.getElementById('youtube-frame');
+            const title = document.getElementById('video-title');
+            const desc = document.getElementById('video-desc');
+
+            title.innerText = item.title;
+            desc.innerText = item.desc;
+            frame.src = `https://www.youtube.com/embed/${item.videoId}?autoplay=1`;
+            
+            modal.showModal();
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('video-modal');
+            const frame = document.getElementById('youtube-frame');
+            frame.src = ""; // Stop video
+            modal.close();
+        }
+
+        // --- Render Checklist ---
         function renderChecklist() {
             const html = checklistItems.map(item => `
-                <div class="group p-3 rounded border border-white/5 hover:border-neon-yellow/50 hover:bg-white/5 transition-all cursor-default">
-                    <div class="flex items-center gap-3 mb-1">
-                        <span class="text-neon-yellow font-display font-bold text-xl">#${item.id}</span>
-                        <h3 class="text-white font-bold uppercase tracking-wider text-sm">${item.title}</h3>
+                <div onclick="openVideoModal(${item.id})" class="checklist-item group p-3 rounded border border-white/5 cursor-pointer relative overflow-hidden bg-white/5 hover:border-neon-yellow/50">
+                    <div class="flex items-center justify-between mb-1">
+                        <div class="flex items-center gap-3">
+                            <span class="text-neon-yellow font-display font-bold text-xl">#${item.id}</span>
+                            <h3 class="text-white font-bold uppercase tracking-wider text-sm">${item.title}</h3>
+                        </div>
+                        <span class="material-symbols-outlined text-gray-500 group-hover:text-red-500 transition-colors">play_circle</span>
                     </div>
-                    <p class="text-xs text-gray-500 group-hover:text-gray-300 transition-colors">${item.desc}</p>
+                    <p class="text-xs text-gray-500 group-hover:text-gray-300 transition-colors pr-6">${item.desc}</p>
                 </div>
             `).join('');
             
