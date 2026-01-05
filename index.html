@@ -107,36 +107,6 @@
         </div>
     </main>
 
-    <dialog id="detail-modal" class="bg-transparent p-0 w-full max-w-2xl backdrop:bg-black/80 m-auto rounded-xl">
-        <div class="glass-panel text-white rounded-xl overflow-hidden relative">
-            <button onclick="this.closest('dialog').close()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-20">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-            <div id="modal-content"></div>
-        </div>
-    </dialog>
-
-    <dialog id="video-modal" class="bg-transparent p-0 w-full max-w-4xl backdrop:bg-black/90 m-auto rounded-xl">
-        <div class="bg-fight-black text-white rounded-xl overflow-hidden border border-white/10 flex flex-col">
-            <div class="p-4 border-b border-white/10 flex justify-between items-center bg-fight-gray">
-                <h3 id="video-title" class="text-neon-yellow font-display text-xl uppercase">Tutorial</h3>
-                <button onclick="closeVideoModal()" class="text-gray-400 hover:text-white"><span class="material-symbols-outlined">close</span></button>
-            </div>
-            <div class="aspect-video w-full"><iframe id="youtube-frame" class="w-full h-full" src="" frameborder="0" allowfullscreen></iframe></div>
-            <div class="p-4 bg-fight-gray text-sm text-gray-400" id="video-desc"></div>
-        </div>
-    </dialog>
-
-    <dialog id="mobile-checklist" class="bg-fight-gray text-white w-full h-full m-0 p-0">
-        <div class="flex flex-col h-full">
-            <div class="p-4 border-b border-white/10 flex justify-between items-center">
-                <h2 class="text-neon-yellow font-display text-2xl uppercase">The Checklist</h2>
-                <button onclick="this.closest('dialog').close()" class="text-white"><span class="material-symbols-outlined">close</span></button>
-            </div>
-            <div id="mobile-checklist-content" class="p-4 space-y-4 overflow-y-auto"></div>
-        </div>
-    </dialog>
-
     <script>
         const checklistItems = [
             { id: 1, title: "Cutting the Ring", desc: "No straight lines back. Lateral movement only.", videoId: "hCDH0fEOh0Y" },
@@ -151,7 +121,7 @@
             1: {
                 title: "The Sharpening Phase",
                 days: [
-                    { date: "Jan 5", day: "Monday", focus: "Aggression & Pressure", drill: "6-8 rounds of heavy bag (3 mins on, 1 min off).", goals: [2, 3], img: "https://ibb.co/Vcs7bbq6" },
+                    { date: "Jan 5", day: "Monday", focus: "Aggression & Pressure", drill: "6-8 rounds of heavy bag (3 mins on, 1 min off).", goals: [2, 3], img: "https://ibb.co/SwNG7nB9" },
                     { date: "Jan 6", day: "Tuesday", focus: "Defensive Positioning", drill: "Shadowboxing in ring + Slip-bag work.", goals: [6], img: "https://ibb.co/Xk87m1XT" },
                     { date: "Jan 7", day: "Wednesday", focus: "Control & Range", drill: "Mitt work with Coach.", goals: [5, 4], img: "https://ibb.co/DHWVSNNz" },
                     { date: "Jan 8", day: "Thursday", focus: "Conditioning", drill: "Interval sprints + 'Ring Cutting' footwork.", goals: [1], img: "https://ibb.co/hRKF1gGc" },
@@ -165,12 +135,13 @@
                     { date: "Jan 13", day: "Tuesday", focus: "Precision Mitts", drill: "Light mitts/touch pads. No power.", goals: [2, 4], img: "https://ibb.co/20ffQpSZ" },
                     { date: "Jan 14", day: "Wednesday", focus: "Strategy & Visualization", drill: "Shadowboxing with a mirror.", goals: [6], img: "https://ibb.co/9m6TN7cy" },
                     { date: "Jan 15", day: "Thursday", focus: "Active Recovery", drill: "Stretching and light footwork.", goals: [1, 2, 3, 4, 5, 6], img: "https://ibb.co/MkP2bY9Y" },
-                    { date: "Jan 16", day: "Friday", focus: "Complete Rest", drill: "Gear check, weight check, and mental review.", goals: [], img: "https://ibb.co/FbRV73Pv" },
+                    { date: "Jan 16", day: "Friday", focus: "Complete Rest", drill: "Gear check, weight check, and mental review.", goals: [], img: "https://ibb.co/Vcs7bbq6" },
                     { date: "Jan 17", day: "Saturday", focus: "TOURNAMENT DAY", drill: "Punch, move the head, and cut the ring.", goals: [1, 6], tournament: true, img: "https://ibb.co/LdgLFJ7M" }
                 ]
             }
         };
 
+        // ... [Rest of the rendering functions from original code] ...
         let currentPhase = 1;
 
         function renderChecklist() {
@@ -184,7 +155,8 @@
                 </div>
             `).join('');
             document.getElementById('checklist-container').innerHTML = html;
-            document.getElementById('mobile-checklist-content').innerHTML = html;
+            const mobileCont = document.getElementById('mobile-checklist-content');
+            if(mobileCont) mobileCont.innerHTML = html;
         }
 
         function switchPhase(phase) {
@@ -262,5 +234,35 @@
 
         window.onload = () => { renderChecklist(); renderSchedule(); startCountdown(); };
     </script>
+
+    <dialog id="detail-modal" class="bg-transparent p-0 w-full max-w-2xl backdrop:bg-black/80 m-auto rounded-xl">
+        <div class="glass-panel text-white rounded-xl overflow-hidden relative">
+            <button onclick="this.closest('dialog').close()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-20">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div id="modal-content"></div>
+        </div>
+    </dialog>
+
+    <dialog id="video-modal" class="bg-transparent p-0 w-full max-w-4xl backdrop:bg-black/90 m-auto rounded-xl">
+        <div class="bg-fight-black text-white rounded-xl overflow-hidden border border-white/10 flex flex-col">
+            <div class="p-4 border-b border-white/10 flex justify-between items-center bg-fight-gray">
+                <h3 id="video-title" class="text-neon-yellow font-display text-xl uppercase">Tutorial</h3>
+                <button onclick="closeVideoModal()" class="text-gray-400 hover:text-white"><span class="material-symbols-outlined">close</span></button>
+            </div>
+            <div class="aspect-video w-full"><iframe id="youtube-frame" class="w-full h-full" src="" frameborder="0" allowfullscreen></iframe></div>
+            <div class="p-4 bg-fight-gray text-sm text-gray-400" id="video-desc"></div>
+        </div>
+    </dialog>
+
+    <dialog id="mobile-checklist" class="bg-fight-gray text-white w-full h-full m-0 p-0">
+        <div class="flex flex-col h-full">
+            <div class="p-4 border-b border-white/10 flex justify-between items-center">
+                <h2 class="text-neon-yellow font-display text-2xl uppercase">The Checklist</h2>
+                <button onclick="this.closest('dialog').close()" class="text-white"><span class="material-symbols-outlined">close</span></button>
+            </div>
+            <div id="mobile-checklist-content" class="p-4 space-y-4 overflow-y-auto"></div>
+        </div>
+    </dialog>
 </body>
 </html>
