@@ -35,11 +35,11 @@
                 radial-gradient(circle at 50% 0%, #1a1a1a 0%, transparent 70%),
                 linear-gradient(0deg, #050505 0%, #0a0a0a 100%);
         }
-        .neon-text { text-shadow: 0 0 10px rgba(204, 204, 0, 0.5); }
+        .neon-text { text-shadow: 0 0 10px rgba(204, 255, 0, 0.5); }
         .glass-panel {
-            background: rgba(20, 20, 20, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .checklist-item { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
         .checklist-item:hover {
@@ -107,7 +107,7 @@
         </div>
     </main>
 
-    <dialog id="detail-modal" class="bg-transparent p-0 w-full max-w-2xl backdrop:bg-black/80 m-auto rounded-xl focus:outline-none">
+    <dialog id="detail-modal" class="bg-transparent p-0 w-full max-w-2xl backdrop:bg-black/90 m-auto rounded-xl focus:outline-none">
         <div class="glass-panel text-white rounded-xl overflow-hidden relative">
             <button onclick="this.closest('dialog').close()" class="absolute top-4 right-4 text-white bg-black/50 w-8 h-8 rounded-full flex items-center justify-center z-20 hover:bg-neon-yellow hover:text-black transition-colors">
                 <span class="material-symbols-outlined">close</span>
@@ -116,7 +116,7 @@
         </div>
     </dialog>
 
-    <dialog id="video-modal" class="bg-transparent p-0 w-full max-w-4xl backdrop:bg-black/90 m-auto rounded-xl">
+    <dialog id="video-modal" class="bg-transparent p-0 w-full max-w-4xl backdrop:bg-black/95 m-auto rounded-xl focus:outline-none">
         <div class="bg-fight-black text-white rounded-xl overflow-hidden border border-white/10 flex flex-col">
             <div class="p-4 border-b border-white/10 flex justify-between items-center bg-fight-gray">
                 <h3 id="video-title" class="text-neon-yellow font-display text-xl uppercase">Tutorial</h3>
@@ -221,18 +221,18 @@
         function openDayModal(phase, idx) {
             const day = scheduleData[phase].days[idx];
             document.getElementById('modal-content').innerHTML = `
-                <div class="w-full bg-black flex items-center justify-center border-b border-white/10">
-                    <img src="${day.img}" class="w-full h-auto max-h-[60vh] object-contain block mx-auto">
+                <div class="w-full bg-black border-b border-white/10">
+                    <img src="${day.img}" class="w-full h-auto max-h-[65vh] object-contain block mx-auto shadow-2xl">
                 </div>
                 <div class="p-6 bg-fight-gray">
                     <h1 class="text-3xl font-display font-bold text-white uppercase mb-4">${day.focus}</h1>
-                    <p class="text-xl text-white border-l-2 border-neon-yellow pl-4 mb-6">${day.drill}</p>
-                    <div class="text-xs text-gray-400 uppercase tracking-widest mb-3">Daily Checklist Focus:</div>
+                    <p class="text-xl text-white border-l-2 border-neon-yellow pl-4 mb-6 italic font-light">${day.drill}</p>
+                    <div class="text-xs text-gray-500 uppercase tracking-[0.2em] mb-3">Checklist Mastery:</div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        ${day.goals.map(id => {
+                        ${day.goals.length > 0 ? day.goals.map(id => {
                             const item = checklistItems.find(i=>i.id===id);
-                            return item ? `<div class="p-2 bg-white/5 rounded text-xs text-white uppercase flex items-center gap-2"><span class="text-neon-yellow font-bold">#${id}</span> ${item.title}</div>` : '';
-                        }).join('')}
+                            return item ? `<div class="p-2.5 bg-white/5 rounded border border-white/5 text-xs text-white uppercase flex items-center gap-3"><span class="text-neon-yellow font-bold text-lg font-display">#${id}</span> ${item.title}</div>` : '';
+                        }).join('') : '<div class="text-gray-500 text-xs italic">Focus on recovery and mental preparation.</div>'}
                     </div>
                 </div>`;
             document.getElementById('detail-modal').showModal();
