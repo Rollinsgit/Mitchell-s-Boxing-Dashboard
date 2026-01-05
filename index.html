@@ -202,15 +202,15 @@
 
     <script>
         // --- Data ---
-        // Video IDs based on common boxing tutorials (Tony Jeffries, Precision Striking, etc.)
+        // Video IDs based on common boxing tutorials
         const checklistItems = [
             { id: 1, title: "Cutting the Ring", desc: "No straight lines back. Lateral movement only.", icon: "directions_walk", videoId: "hCDH0fEOh0Y" },
             { id: 2, title: "Double Jab Entry", desc: "Never enter with a single shot. 1-1-2.", icon: "sports_martial_arts", videoId: "UjHH3mgQTVY" },
-            { id: 3, title: "Body-Head Transitions", desc: "Change levels. Make them guess.", icon: "swap_vert", videoId: "T8PA6QiDmc4" },
+            { id: 3, title: "Body-Head Transitions", desc: "Change levels. Make them guess.", icon: "swap_vert", videoId: "fJaMA3FfB5M" },
             { id: 4, title: "Pivot Escape", desc: "Hit, then angle out. Don't admire your work.", icon: "rotate_right", videoId: "hNclexRmDsY" },
             { id: 5, title: "Hand-Checking", desc: "Disrupt their jab before it starts.", icon: "pan_tool", videoId: "ob3VJDiP60U" },
-            { id: 6, title: "Head Slotting", desc: "Head off-center immediately after punching.", icon: "psychology", videoId: "Dkzdn47VTsg" },
-            { id: 7, title: "Eye Levels", desc: "Dip knees to change visual perspective.", icon: "visibility", videoId: "x_YNeelRnlA" }
+            { id: 6, title: "Head Slotting", desc: "Head off-center immediately after punching.", icon: "psychology", videoId: "Dkzdn47VTsg" }
+            // Item 7 Removed as requested
         ];
 
         // Dates based on Jan 17, 2026 (Saturday) Tournament
@@ -231,7 +231,7 @@
                         date: "Jan 6", day: "Tuesday", 
                         focus: "Defensive Positioning", 
                         drill: "Shadowboxing in ring + Slip-bag work.", 
-                        goals: [6, 7],
+                        goals: [6], // Removed 7
                         img_query: "boxer shadow boxing silhouette ring lights"
                     },
                     { 
@@ -281,7 +281,7 @@
                         date: "Jan 14", day: "Wednesday", 
                         focus: "Strategy & Visualization", 
                         drill: "Shadowboxing with mirror. Visualize opponent.", 
-                        goals: [7, 6],
+                        goals: [6], // Removed 7
                         img_query: "boxer looking in mirror intense focus mental preparation"
                     },
                     { 
@@ -418,7 +418,7 @@
                                 <p class="text-sm text-gray-400 truncate pr-4">${day.drill}</p>
                             </div>
                             <div class="hidden md:flex gap-2">
-                                ${day.goals.map(g => `<span class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-xs font-bold text-gray-400 bg-black/20" title="${checklistItems[g-1].title}">#${g}</span>`).join('')}
+                                ${day.goals.map(g => `<span class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-xs font-bold text-gray-400 bg-black/20" title="${checklistItems.find(i=>i.id===g)?.title}">#${g}</span>`).join('')}
                                 <span class="material-symbols-outlined text-gray-500 group-hover:text-neon-yellow transition-colors">chevron_right</span>
                             </div>
                         </div>
@@ -440,6 +440,7 @@
             const goalsHtml = day.goals.length > 0 
                 ? day.goals.map(id => {
                     const item = checklistItems.find(i => i.id === id);
+                    if(!item) return '';
                     return `
                         <li class="flex items-start gap-3 p-3 bg-white/5 rounded border border-white/5">
                             <span class="text-neon-yellow font-bold">#${item.id}</span>
