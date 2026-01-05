@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitchell's Boxing Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .active-tab { border-bottom: 4px solid #ef4444; color: #ef4444; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white font-sans">
+    <div class="max-w-md mx-auto p-6">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold tracking-tighter text-red-600">MITCHELL'S CAMP</h1>
+            <p class="text-zinc-400">Official Training Dashboard</p>
+        </header>
+
+        <div class="bg-zinc-900 rounded-2xl p-6 mb-6 border border-zinc-800 shadow-xl">
+            <h2 class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Next Session</h2>
+            <div class="flex justify-between items-end">
+                <span class="text-2xl font-bold">Sparring @ 5PM</span>
+                <span class="text-red-500 font-mono">Today</span>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <h3 class="text-lg font-semibold border-l-4 border-red-600 pl-3">Weekly Schedule</h3>
+            <div class="bg-zinc-900 rounded-xl p-4 flex justify-between items-center hover:bg-zinc-800 cursor-pointer transition">
+                <div>
+                    <p class="font-bold">Monday: Strength</p>
+                    <p class="text-sm text-zinc-500">Focus on explosive power</p>
+                </div>
+                <button onclick="alert('Logged!')" class="bg-red-600 px-3 py-1 rounded text-xs font-bold uppercase">Log</button>
+            </div>
+            </div>
+        
+        <footer class="mt-12 text-center text-zinc-600 text-xs">
+            Created for Mitchell's Boxing Coach &bull; 2026
+        </footer>
+    </div>
+</body>
+</html>
